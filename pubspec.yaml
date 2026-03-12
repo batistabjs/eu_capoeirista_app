@@ -1,0 +1,48 @@
+name: eu_capoeirista_app
+description: Eu Capoeirista — Google Calendar Frontend App for Flutter Web
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Google Sign-In e OAuth
+  google_sign_in: ^6.2.1
+  google_sign_in_web: ^0.12.4
+
+  # HTTP requests
+  http: ^1.2.0
+
+  # URL launcher (para links de eventos)
+  url_launcher: ^6.2.5
+
+  # Intl para formatação de datas
+  intl: ^0.19.0
+
+  # Flutter Riverpod para gerenciamento de estado
+  flutter_riverpod: ^2.5.1
+
+  # Ícones do Material Design
+  cupertino_icons: ^1.0.6
+
+  # Shimmer loading effect
+  shimmer: ^3.0.0
+
+  # Cached network image
+  cached_network_image: ^3.3.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
