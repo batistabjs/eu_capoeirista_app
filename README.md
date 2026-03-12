@@ -4,46 +4,6 @@ App Flutter para listagem de eventos de Capoeira no Brasil através do Google Ca
 
 ---
 
-## Telas
-
-| Tela | Descrição |
-|------|-----------|
-| **Login** | Autenticação com Google (OAuth 2.0) |
-| **Lista de Eventos** | Compromissos agrupados por data com filtros |
-| **Detalhe do Evento** | Informações completas: horário, local, participantes, Meet, lembretes |
-
----
-
-## Estrutura do Projeto
-
-```
-eu-capoeirista-app/
-├── lib/
-│   ├── main.dart                        # Entry point + roteamento por autenticação
-│   ├── theme/
-│   │   └── app_theme.dart               # Tema dark (paleta, tipografia, componentes)
-│   ├── models/
-│   │   └── calendar_event.dart          # Modelos: CalendarEvent, Attendee, Creator...
-│   ├── services/
-│   │   ├── auth_service.dart            # Google Sign-In + gerenciamento de token
-│   │   └── calendar_service.dart        # Chamadas à Google Calendar API v3
-│   ├── screens/
-│   │   ├── login_screen.dart            # Tela de login animada
-│   │   ├── events_list_screen.dart      # Listagem com paginação e filtros
-│   │   └── event_detail_screen.dart     # Detalhamento completo do evento
-│   └── widgets/
-│       ├── event_card.dart              # Card de evento com hover e indicadores
-│       ├── calendar_filter_bar.dart     # Filtro de calendário + seletor de período
-│       ├── loading_skeleton.dart        # Skeleton animado para carregamento
-│       └── user_avatar.dart             # Avatar com menu de logout
-├── web/
-│   ├── index.html                       # HTML com Google Sign-In script
-│   └── manifest.json                    # PWA manifest
-└── pubspec.yaml                         # Dependências do projeto
-```
-
----
-
 ## Pré-requisitos
 
 - **Flutter SDK** `>=3.0.0` — [Instalar Flutter](https://docs.flutter.dev/get-started/install)
@@ -133,7 +93,7 @@ late final GoogleSignIn _googleSignIn = GoogleSignIn(
 );
 ```
 
-**Ou** use variável de ambiente (recomendado):
+**Ou** use variável de ambiente:
 
 ```bash
 flutter run -d chrome --web-port=5000 \
@@ -255,52 +215,5 @@ cd build/web && python3 -m http.server 8080
 | `orderBy` | string | Ordenação: `startTime` ou `updated` |
 | `pageToken` | string | Token para próxima página (paginação) |
 | `q` | string | Pesquisa de texto livre |
-
----
-
-## Escopos OAuth Utilizados
-
-```
-email                                              - Acesso ao e-mail do usuário
-profile                                            - Acesso ao perfil básico
-https://www.googleapis.com/auth/calendar.readonly  - Leitura somente do calendário
-```
-
-> A aplicação **não modifica, cria ou exclui** nenhum dado do calendário.
-
----
-
-## Dependências Principais
-
-```yaml
-google_sign_in: ^6.2.1          # Autenticação Google OAuth
-google_sign_in_web: ^0.12.4     # Suporte web para google_sign_in
-http: ^1.2.0                    # Requisições HTTP para a Calendar API
-intl: ^0.19.0                   # Formatação de datas em pt_BR
-```
-
----
-
-## Build para Produção
-
-```bash
-flutter build web --release
-```
-
-Os arquivos serão gerados em `build/web/`. Para deploy, hospede nessa pasta em qualquer servidor web estático (Firebase Hosting, GitHub Pages, Vercel, Netlify, etc.).
-
-> **Atenção**: em produção, adicione o domínio no Google Cloud Console em "Origens JavaScript autorizadas".
-
----
-
-## Problemas Comuns
-
-| Problema | Causa | Solução |
-|----------|-------|---------|
-| `redirect_uri_mismatch` | URI não registrada no Cloud Console | Adicione `http://localhost:5000` nas URIs autorizadas |
-| `access_blocked` | App em modo teste sem usuário adicionado | Adicione seu e-mail em "Usuários de teste" |
-| `invalid_client` | Client ID incorreto | Verifique o Client ID no `auth_service.dart` e `index.html` |
-| Tela branca no Chrome | Erro no build JS | Execute `flutter run -d chrome --verbose` para ver o erro |
-| Eventos não aparecem | Token expirado | Faça logout e login novamente |
 
 ---
